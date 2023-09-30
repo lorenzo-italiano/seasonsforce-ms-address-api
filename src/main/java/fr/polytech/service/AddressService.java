@@ -11,6 +11,7 @@ import java.util.UUID;
 @Service
 public class AddressService {
 
+    @Autowired
     private AddressRepository addressRepository;
 
     public void deleteAddress(UUID id) {
