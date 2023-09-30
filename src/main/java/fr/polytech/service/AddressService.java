@@ -34,5 +34,8 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    public UUID findSimilarAddress(Address address) {
+        return addressRepository.findSimilarAddress(address.getStreet(), address.getCity(), address.getZipCode(), address.getNumber(), address.getCountry());
+    }
 
 }
