@@ -10,9 +10,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String street;
