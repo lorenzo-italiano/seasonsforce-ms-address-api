@@ -6,3 +6,6 @@ cd api-image
 
 docker build -t address-api .
 
+cd ../postgres-image
+
+docker build -t address-db .
