@@ -22,15 +22,14 @@ public class AddressController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('client_user')")
     public List<Address> getAllAddresses() {
         return addressService.getAllAddresses();
     }
 
-    @GetMapping("/test")
+    @GetMapping("/test/1")
+    @PreAuthorize("hasRole('client_admin')")
     public String test() {
-        System.out.println("test");
-        return "test";
+        return "test for admin";
     }
 
     @GetMapping("/{id}")
