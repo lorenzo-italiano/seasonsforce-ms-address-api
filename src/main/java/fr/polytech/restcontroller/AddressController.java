@@ -5,6 +5,8 @@ import fr.polytech.model.Address;
 import fr.polytech.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,13 +44,17 @@ public class AddressController {
     * Si une adresse similaire existe déjà, renvoyez l'ID de cette adresse.
      */
     @PostMapping("/")
-    public UUID createAddress(@RequestBody Address address) {
+    public ResponseEntity<UUID> createAddress(@RequestBody Address address) {
         UUID existingId = addressService.findSimilarAddress(address);
         if (existingId != null) {
-            return existingId;
+//            return ResponseEntity.ok(existingId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(existingId);
+//            return ResponseEntity.body(existingId);
         }
 
-        return addressService.createAddress(address).getId();
+//        return new addressService.createAddress(address).getId();
+//        return ResponseEntity.ok();
+        return ResponseEntity.status(HttpStatus.CREATED).body(addressService.createAddress(address).getId());
     }
 
     /*
