@@ -4,6 +4,7 @@ package fr.polytech.restcontroller;
 import fr.polytech.model.Address;
 import fr.polytech.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,12 @@ public class AddressController {
     @GetMapping("/")
     public List<Address> getAllAddresses() {
         return addressService.getAllAddresses();
+    }
+
+    @GetMapping("/test/1")
+    @PreAuthorize("hasRole('client_admin')")
+    public String test() {
+        return "test for admin";
     }
 
     @GetMapping("/{id}")
