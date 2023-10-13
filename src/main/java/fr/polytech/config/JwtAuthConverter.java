@@ -28,6 +28,11 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
     private final String principleAttribute = "preferred_username"; // TODO: Env variable
     private final String resourceId = "seasonsforce-client"; // TODO: Env variable
 
+    /**
+     * Convert a Jwt to an AbstractAuthenticationToken
+     * @param jwt Jwt to convert
+     * @return AbstractAuthenticationToken
+     */
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
         Collection<GrantedAuthority> authorities = Stream.concat(
@@ -42,10 +47,20 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         );
     }
 
+    /**
+     * Get the name of the principle from the Jwt
+     * @param jwt Jwt to extract the principle name from
+     * @return Principle attribute name
+     */
     private String getPrincipleClaimName(Jwt jwt) {
         return jwt.getClaim(principleAttribute);
     }
 
+    /**
+     * Extract the roles from the resource_access claim
+     * @param jwt Jwt to extract the roles from
+     * @return Collection of GrantedAuthority
+     */
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
         Map<String, Object> resourceAccess;
         Map<String, Object> resource;

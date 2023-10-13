@@ -18,30 +18,50 @@ public class AddressController {
 
     private final AddressService addressService;
 
+    /**
+     * Constructor for AddressController
+     * @param addressService AddressService to inject
+     */
     @Autowired
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 
+    /**
+     * Get all addresses from the database
+     * @return List of all addresses
+     */
     @GetMapping("/")
     public List<Address> getAllAddresses() {
         return addressService.getAllAddresses();
     }
 
+    /**
+     * Just a test endpoint
+     * @return Test string
+     * TODO: Remove this endpoint
+     */
     @GetMapping("/test/1")
     @PreAuthorize("hasRole('client_admin')")
     public String test() {
         return "test for admin";
     }
 
+    /**
+     * Get the address with the specified ID
+     * @param id ID of the address to get
+     * @return Address with the specified ID
+     */
     @GetMapping("/{id}")
     public Address getAddressById(@PathVariable UUID id) {
         return addressService.getAddressById(id);
     }
 
-    /*
-    * Créez une nouvelle adresse si elle n'existe pas déjà dans la base de données.
-    * Si une adresse similaire existe déjà, renvoyez l'ID de cette adresse.
+    /**
+     * Create a new address if it doesn't already exist in the database.
+     * If a similar address already exists, return the ID of that address.
+     * @param address Address to create
+     * @return ID of the created address
      */
     @PostMapping("/")
     public ResponseEntity<UUID> createAddress(@RequestBody Address address) {
@@ -57,28 +77,32 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.CREATED).body(addressService.createAddress(address).getId());
     }
 
-    /*
-    * Les adresses ne sont jamais mises à jour, car elles peuvent être utilisées par plusieurs utilisateurs / entreprises.
-    * Si une addresse est mise à jour, on vérifie si une adresse similaire existe déjà. Si c'est le cas, on renvoie l'ID de cette adresse.
-    * Sinon, on crée une nouvelle adresse et on renvoie son ID.
+
+    /**
+     * Addresses are never updated, because they can be used by multiple users/companies.
+     * If an address is updated, we check if a similar address already exists. If it does, we return the ID of that address.
+     * Otherwise, we create a new address and return its ID.
+     * @param address Address to update
+     * @return ID of the updated address
      */
     @PutMapping("/")
     public UUID updateAddress(@RequestBody Address address) {
-        // Vérifiez si l'adresse existe déjà
+        // Check if a similar address already exists
         UUID existingAddress = addressService.findSimilarAddress(address);
 
-        // Si l'adresse n'existe pas, créez-la
+        // If it doesn't, we create a new address
         if (existingAddress == null) {
             return addressService.createAddress(address).getId();
         }
 
-        // Sinon on renvoie l'ID de l'adresse existante
+        // Otherwise, we return the ID of the existing address
         return existingAddress;
     }
 
-    /*
-    * Supprimez l'adresse avec l'ID spécifié.
-    * TODO: Doit-on enlever cette possibilité (même pour admins) ?
+    /**
+     * Remove an address from the database.
+     * @param id ID of the address to remove
+     * TODO: Should we remove this possibility (even for admins) ?
      */
     @DeleteMapping("/{id}")
     public void deleteAddress(@PathVariable UUID id) {

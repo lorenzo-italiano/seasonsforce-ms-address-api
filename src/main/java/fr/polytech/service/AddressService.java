@@ -11,29 +11,60 @@ import java.util.UUID;
 @Service
 public class AddressService {
 
+    /**
+     * AddressRepository to inject
+     */
     @Autowired
     private AddressRepository addressRepository;
 
+    /**
+     * Delete the address with the specified ID
+     * @param id ID of the address to delete
+     */
     public void deleteAddress(UUID id) {
         addressRepository.deleteById(id);
     }
 
+    /**
+     * Get all addresses from the database
+     * @return List of all addresses
+     */
     public List<Address> getAllAddresses() {
         return addressRepository.findAll();
     }
 
+    /**
+     * Get the address with the specified ID
+     * @param id ID of the address to get
+     * @return Address with the specified ID
+     */
     public Address getAddressById(UUID id) {
         return addressRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Create a new address
+     * @param address Address to create
+     * @return Created address
+     */
     public Address createAddress(Address address) {
         return addressRepository.save(address);
     }
 
+    /**
+     * Update an existing address
+     * @param address Address to update
+     * @return Updated address
+     */
     public Address updateAddress(Address address) {
         return addressRepository.save(address);
     }
 
+    /**
+     * Find an address with the same street, city, zip code, number and country
+     * @param address Address to find
+     * @return ID of the address if found, null otherwise
+     */
     public UUID findSimilarAddress(Address address) {
         return addressRepository.findSimilarAddress(address.getStreet(), address.getCity(), address.getZipCode(), address.getNumber(), address.getCountry());
     }
