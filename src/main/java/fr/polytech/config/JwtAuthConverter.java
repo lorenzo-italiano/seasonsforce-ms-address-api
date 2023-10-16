@@ -25,8 +25,8 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         this.jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
     }
 
-    private final String principleAttribute = "preferred_username"; // TODO: Env variable
-    private final String resourceId = "seasonsforce-client"; // TODO: Env variable
+    private final String principleAttribute = System.getenv("PRINCIPLE_ATTRIBUTE_NAME");
+    private final String resourceId = System.getenv("RESOURCE_ID");
 
     /**
      * Convert a Jwt to an AbstractAuthenticationToken
