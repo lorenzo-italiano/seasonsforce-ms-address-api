@@ -3,7 +3,9 @@ package fr.polytech.service;
 import fr.polytech.model.Address;
 import fr.polytech.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,9 +39,14 @@ public class AddressService {
      * Get the address with the specified ID
      * @param id ID of the address to get
      * @return Address with the specified ID
+     * @throws HttpClientErrorException If address is not found
      */
-    public Address getAddressById(UUID id) {
-        return addressRepository.findById(id).orElse(null);
+    public Address getAddressById(UUID id) throws HttpClientErrorException {
+        Address address = addressRepository.findById(id).orElse(null);
+        if (address == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+        return address;
     }
 
     /**
@@ -48,15 +55,6 @@ public class AddressService {
      * @return Created address
      */
     public Address createAddress(Address address) {
-        return addressRepository.save(address);
-    }
-
-    /**
-     * Update an existing address
-     * @param address Address to update
-     * @return Updated address
-     */
-    public Address updateAddress(Address address) {
         return addressRepository.save(address);
     }
 
