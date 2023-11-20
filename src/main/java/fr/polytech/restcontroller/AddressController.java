@@ -89,13 +89,9 @@ public class AddressController {
     public ResponseEntity<UUID> createAddress(@RequestBody Address address) {
         UUID existingId = addressService.findSimilarAddress(address);
         if (existingId != null) {
-//            return ResponseEntity.ok(existingId);
             return ResponseEntity.status(HttpStatus.CREATED).body(existingId);
-//            return ResponseEntity.body(existingId);
         }
 
-//        return new addressService.createAddress(address).getId();
-//        return ResponseEntity.ok();
         return ResponseEntity.status(HttpStatus.CREATED).body(addressService.createAddress(address).getId());
     }
 
@@ -130,8 +126,8 @@ public class AddressController {
      * Remove an address from the database.
      *
      * @param id ID of the address to remove
-     * TODO: Should we remove this possibility (even for admins) ?
      */
+    @IsAdmin
     @DeleteMapping("/{id}")
     public void deleteAddress(@PathVariable UUID id) {
         addressService.deleteAddress(id);
