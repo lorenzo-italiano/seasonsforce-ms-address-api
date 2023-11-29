@@ -21,6 +21,7 @@ public class AddressService {
 
     /**
      * Delete the address with the specified ID
+     *
      * @param id ID of the address to delete
      */
     public void deleteAddress(UUID id) {
@@ -29,6 +30,7 @@ public class AddressService {
 
     /**
      * Get all addresses from the database
+     *
      * @return List of all addresses
      */
     public List<Address> getAllAddresses() {
@@ -37,6 +39,7 @@ public class AddressService {
 
     /**
      * Get the address with the specified ID
+     *
      * @param id ID of the address to get
      * @return Address with the specified ID
      * @throws HttpClientErrorException If address is not found
@@ -51,6 +54,7 @@ public class AddressService {
 
     /**
      * Create a new address
+     *
      * @param address Address to create
      * @return Created address
      */
@@ -60,6 +64,7 @@ public class AddressService {
 
     /**
      * Find an address with the same street, city, zip code, number and country
+     *
      * @param address Address to find
      * @return ID of the address if found, null otherwise
      */

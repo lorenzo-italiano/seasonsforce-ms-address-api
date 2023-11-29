@@ -19,6 +19,7 @@ public class SecurityConfig {
 
     /**
      * Configure the security filter chain to intercept all requests
+     *
      * @param http HttpSecurity object to configure
      * @return SecurityFilterChain to be used by Spring Security
      * @throws Exception if an error occurs while configuring the HttpSecurity object

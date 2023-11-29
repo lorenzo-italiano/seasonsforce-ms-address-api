@@ -30,6 +30,7 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
     /**
      * Convert a Jwt to an AbstractAuthenticationToken
+     *
      * @param jwt Jwt to convert
      * @return AbstractAuthenticationToken
      */
@@ -49,6 +50,7 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
     /**
      * Get the name of the principle from the Jwt
+     *
      * @param jwt Jwt to extract the principle name from
      * @return Principle attribute name
      */
@@ -58,6 +60,7 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
     /**
      * Extract the roles from the resource_access claim
+     *
      * @param jwt Jwt to extract the roles from
      * @return Collection of GrantedAuthority
      */
