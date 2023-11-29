@@ -1,8 +1,6 @@
 package fr.polytech.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.util.UUID;
 
 @Entity
@@ -10,9 +8,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String street;
