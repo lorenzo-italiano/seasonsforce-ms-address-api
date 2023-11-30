@@ -10,10 +10,9 @@
 
 ## Description
 
-This is the address api repository for all the address microservice of seasonsforce project. 
-It is a Spring Boot application developped in Java. 
+This is the api address repository for the seasonsforce project's address microservice. It's a Spring Boot application developed in Java.
 
-Their is also the `Dockerfile` for the api and the PostgreSQL database.
+There's also the `Dockerfile` for the api and the PostgreSQL database.
 
 ---
 
